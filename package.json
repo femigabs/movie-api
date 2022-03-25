@@ -1,0 +1,70 @@
+{
+  "name": "movie-api",
+  "version": "1.0.0",
+  "description": "A simple Movie API",
+  "main": "index.js",
+  "nyc": {
+    "all": false,
+    "include": [
+      "src/**"
+    ],
+    "exclude": [
+      "**/migrations/**",
+      "src/config/**"
+    ]
+  },
+  "scripts": {
+    "pretest": "npm run migrate-test:down && npm run migrate-test:up",
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=text-summary mocha -c -r esm \"./tests/**/*.js\" --timeout 12000 --exit",
+    "prestart": "npm run migrate:up",
+    "start": "node -r esm .",
+    "dev": "nodemon -r esm .",
+    "migrate:up": "db-migrate up",
+    "migrate:down": "db-migrate down -c 100",
+    "migrate-test:up": "db-migrate up --config database.json -e test",
+    "migrate-test:down": "db-migrate down -c 100 --config database.json -e test",
+    "lint": "eslint . --ext .js ./",
+    "lint-fix": "eslint . --ext .js ./ --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/femigabs/movie-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/femigabs/movie-api/issues"
+  },
+  "homepage": "https://github.com/femigabs/movie-api#readme",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "axios": "^0.24.0",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "db-migrate": "^0.11.9",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^16.0.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "esm": "^3.2.25",
+    "express": "^4.17.3",
+    "file-stream-rotator": "^0.6.1",
+    "fs": "0.0.1-security",
+    "helmet": "^5.0.2",
+    "mocha": "^9.2.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "pg-promise": "^10.11.1",
+    "prettier": "^2.6.1",
+    "supertest": "^6.2.2",
+    "winston": "^2.3.0",
+    "winston-daily-rotate-file": "^4.6.1",
+    "winston-logstash": "^0.4.0",
+    "winston-logstash-transport": "^2.0.0"
+  }
+}

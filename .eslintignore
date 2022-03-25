@@ -1,0 +1,4 @@
+/coverage/**
+/tests/**
+/app/migrations/**
+/config/logger
