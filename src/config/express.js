@@ -1,47 +1,18 @@
 /* eslint-disable import/no-cycle */
 import fs from 'fs';
-import morgan from 'morgan';
 import express from 'express';
 import helmet from 'helmet';
-import FileStreamRotator from 'file-stream-rotator';
 import cors from 'cors';
-import loggerInit from './logger';
-import routes from '../routes/v1/index';
-import { Error, errorResponse } from '../utils/response';
+import routes from '../routes/index';
+import { Helper, genericErrors } from '../utils';
+
+const { errorResponse } = Helper;
+const { notFoundApi } = genericErrors;
 
 const logDirectory = './logs';
 const checkLogDir = fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 const expressConfig = (app) => {
-  let accessLogStream;
-  let logger;
-
-  // initialize logger
-  if (app.get('env') === 'development') {
-    logger = loggerInit('development');
-  } else if (app.get('env') === 'production') {
-    logger = loggerInit('production');
-  } else if (app.get('env') === 'test') {
-    logger = loggerInit('test');
-  } else {
-    logger = loggerInit();
-  }
-
-  global.logger = logger;
-  logger.info('Application starting...');
-  logger.debug('Overriding \'Express\' logger');
-
-  if (checkLogDir) {
-    accessLogStream = FileStreamRotator.getStream({
-      date_format: 'YYYYMMDD',
-      filename: `${logDirectory}/access-%DATE%.log`,
-      frequency: 'weekly',
-      verbose: false,
-    });
-  }
-
-  app.use(morgan('combined', { stream: accessLogStream }));
-
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
@@ -63,15 +34,15 @@ const expressConfig = (app) => {
     res.status(200).json({ message: 'Welcome To Movie API' });
   });
 
-  app.use('v1', routes);
+  app.use('/', routes);
 
   // catch 404 and forward to error handler
-  app.use((req, res, next) => next(Error('Route Not Found', 404)));
+  app.use((req, res, next) => next(notFoundApi));
 
   // error handlers
   // will print stacktrace
   app.use((err, req, res, next) => {
-    errorResponse(err, req, res);
+    errorResponse(req, res, err);
   });
 };
 

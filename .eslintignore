@@ -1,4 +1,5 @@
 /coverage/**
 /tests/**
-/app/migrations/**
-/config/logger
+/migrations/**
+/src/config/logger
+/src/queries/**
