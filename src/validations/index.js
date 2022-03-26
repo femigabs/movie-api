@@ -1,4 +1,4 @@
-import { Error } from '../utils/index';
+import { ApiError } from '../utils/index';
 
 const baseValidator = async (schema, req, res, next, type) => {
   try {
@@ -11,9 +11,8 @@ const baseValidator = async (schema, req, res, next, type) => {
     getReqType[type] = await schema.validateAsync(getReqType[type]);
     return next();
   } catch (error) {
-    next(
-      Error(error.message.replace(/[\"]/gi, ''), 400),
-    );
+    const message = error.messagereplace(/[\"]/gi, '');
+    next(ApiError({ message, status: 401 }));
   }
 };
 
