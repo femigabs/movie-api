@@ -4,10 +4,12 @@ import nock from 'nock';
 import app from '../../src';
 import omdbBatmanResponse from '../mock/omdb.batman.response.json';
 import omdbGuardiansResponse from '../mock/omdb.guardians.response.json';
+import { config } from '../../src/config';
 
 const premiumToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQzNCwibmFtZSI6IlByZW1pdW0gSmltIiwicm9sZSI6InByZW1pdW0iLCJpYXQiOjE2NDgyODQ4NDAsImlzcyI6Imh0dHBzOi8vd3d3Lm5ldGd1cnUuY29tLyIsInN1YiI6IjQzNCJ9.F123OLjyLgiSorz4NYayXokoJUz6MKJZQce5bchjB1k';
 const basicToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY0ODI4NDk3NywiaXNzIjoiaHR0cHM6Ly93d3cubmV0Z3VydS5jb20vIiwic3ViIjoiMTIzIn0.-98HwrtEG_qdIdvxHYDEVoO75dXc1JEhZYIfFZGw-xs';
-const expiredToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY0ODIzNzY1MiwiZXhwIjoxNjQ4MjM5NDUyLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.BZmCOV56v-fCSryndnFZ2fCwYc0wNB6f0cnzJWbti4g'
+const expiredToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY0ODIzNzY1MiwiZXhwIjoxNjQ4MjM5NDUyLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.BZmCOV56v-fCSryndnFZ2fCwYc0wNB6f0cnzJWbti4g';
+
 describe('Movie APIs', () => {
     describe('CREATE MOVIE', () => {
         const body1 = {
@@ -18,7 +20,7 @@ describe('Movie APIs', () => {
         };
         it('should throw error if token is not valid', (done) => {
             nock('https://www.omdbapi.com')
-                .post(`/?t=${body1.title}&apikey=210c6629`)
+                .post(`/?t=${body1.title}&apikey=${config.OMDB_API_KEY}`)
                 .reply(200, omdbBatmanResponse);
 
             request(app)
@@ -35,7 +37,7 @@ describe('Movie APIs', () => {
         });
         it('should create movie for premium user', (done) => {
             nock('https://www.omdbapi.com')
-                .post(`/?t=${body1.title}&apikey=210c6629`)
+                .post(`/?t=${body1.title}&apikey=${config.OMDB_API_KEY}`)
                 .reply(200, omdbBatmanResponse);
 
             request(app)
@@ -53,7 +55,7 @@ describe('Movie APIs', () => {
 
         it('should create movie for basic user', (done) => {
             nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=210c6629`)
+                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
                 .reply(200, omdbGuardiansResponse);
 
             request(app)

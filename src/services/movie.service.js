@@ -1,11 +1,12 @@
+/* eslint-disable import/no-cycle */
 import { Helper } from '../utils';
-import db from '../config/database';
+import { config, db } from '../config';
 import moviesQueries from '../queries/movies.queries';
 
 export const createMovie = async (body, decoded) => {
   const { title } = body;
   const result = await Helper.makeRequest(
-    `https://www.omdbapi.com/?t=${title}&apikey=210c6629`,
+    `https://www.omdbapi.com/?t=${title}&apikey=${config.OMDB_API_KEY}`,
     'POST',
   );
   const {

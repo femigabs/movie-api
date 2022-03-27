@@ -2,6 +2,6 @@ import 'dotenv/config';
 
 export default {
   DATABASE_URL: process.env.DATABASE_URL,
-  APP_HOST: process.env.APP_HOST,
   SECRET: process.env.JWT_SECRET,
+  OMDB_API_KEY: process.env.OMDB_API_KEY,
 };

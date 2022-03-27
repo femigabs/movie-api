@@ -8,6 +8,7 @@ export default {
   CREATE_MOVIE_ERROR_MSG: 'Error occured while creating movie',
   GET_MOVIE_ERROR_MSG: 'Error occured while fetching movies',
   AUTH_REQUIRED: 'Access denied, a valid access token is required',
+  ROLE_PERMISSION: 'Access denied, unauthorized user',
   MOVIE_PERMISSION: 'User limit has been exceeded for the month',
   NOT_FOUND_API: 'Oops, You have reached a dead end',
   NOT_FOUND: (resource) => `${resource} not found`,

@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import fs from 'fs';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -8,9 +7,6 @@ import { Helper, genericErrors } from '../utils';
 
 const { errorResponse } = Helper;
 const { notFoundApi } = genericErrors;
-
-const logDirectory = './logs';
-const checkLogDir = fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 const expressConfig = (app) => {
   app.use(express.json());
