@@ -99,7 +99,7 @@ To verify tokens in movie service you need to provide env variable $JWT_SECRET. 
 
 ## Documentation
 - postman: https://documenter.getpostman.com/view/11087517/UVyn2JiG
-- database schema: 
+- database schema: https://dbdiagram.io/d/6240c3d4bed618387308cbc3
 
 ## Copyright
 
