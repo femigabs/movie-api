@@ -1,10 +1,8 @@
 import express from 'express';
-import config, { appConfig } from './config';
-import db from './config/database';
+import { config, appConfig, db } from './config';
 import Logger from './config/logger';
 
 const app = express();
-const host = config.APP_HOST;
 const port = config.PORT || 5000;
 
 const logger = Logger.createLogger({ label: 'Movie' });
@@ -17,7 +15,7 @@ db.connect()
     logger.info('Database connected successfully');
     app.listen(port, () => {
       obj.done();
-      logger.info(`Server started at ${host}:${port}/`);
+      logger.info(`Server listening on port ${port}`);
     });
   })
   .catch((error) => {

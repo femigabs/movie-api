@@ -1,0 +1,23 @@
+version: "3.2"
+services:
+  db:
+    env_file: 
+      - .env
+    image: postgres
+
+  app:
+    command: npm start
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 6000:${PORT}
+    volumes:
+      - .:/app/
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      NODE_ENV: production
+      OMDB_API_KEY: ${OMDB_API_KEY}
