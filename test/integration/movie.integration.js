@@ -35,6 +35,7 @@ describe('Movie APIs', () => {
                     done();
                 });
         });
+        
         it('should create movie for premium user', (done) => {
             nock('https://www.omdbapi.com')
                 .post(`/?t=${body1.title}&apikey=${config.OMDB_API_KEY}`)
@@ -53,7 +54,7 @@ describe('Movie APIs', () => {
                 });
         });
 
-        it('should create movie for basic user', (done) => {
+        it('should create movie1 for basic user', (done) => {
             nock('https://www.omdbapi.com')
                 .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
                 .reply(200, omdbGuardiansResponse);
@@ -67,96 +68,6 @@ describe('Movie APIs', () => {
                 .end((err, res) => {
                     expect(res.body.message).to.equal('Movie created successfully');
                     expect(res.body.code).to.equal(201);
-                    done();
-                });
-        })
-
-        it('should create movie for basic user', (done) => {
-            nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
-                .reply(200, omdbGuardiansResponse);
-
-            request(app)
-                .post('/movies')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${basicToken}`)
-                .send(body2)
-                .expect(201)
-                .end((err, res) => {
-                    expect(res.body.message).to.equal('Movie created successfully');
-                    expect(res.body.code).to.equal(201);
-                    done();
-                });
-        })
-
-        it('should create movie for basic user', (done) => {
-            nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
-                .reply(200, omdbGuardiansResponse);
-
-            request(app)
-                .post('/movies')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${basicToken}`)
-                .send(body2)
-                .expect(201)
-                .end((err, res) => {
-                    expect(res.body.message).to.equal('Movie created successfully');
-                    expect(res.body.code).to.equal(201);
-                    done();
-                });
-        })
-
-        it('should create movie for basic user', (done) => {
-            nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
-                .reply(200, omdbGuardiansResponse);
-
-            request(app)
-                .post('/movies')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${basicToken}`)
-                .send(body2)
-                .expect(201)
-                .end((err, res) => {
-                    expect(res.body.message).to.equal('Movie created successfully');
-                    expect(res.body.code).to.equal(201);
-                    done();
-                });
-        })
-
-        it('should create movie for basic user', (done) => {
-            nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
-                .reply(200, omdbGuardiansResponse);
-
-            request(app)
-                .post('/movies')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${basicToken}`)
-                .send(body2)
-                .expect(201)
-                .end((err, res) => {
-                    expect(res.body.message).to.equal('Movie created successfully');
-                    expect(res.body.code).to.equal(201);
-                    done();
-                });
-        })
-
-        it('should create movie for basic user', (done) => {
-            nock('https://www.omdbapi.com')
-                .post(`/?t=${body2.title}&apikey=${config.OMDB_API_KEY}`)
-                .reply(200, omdbGuardiansResponse);
-
-            request(app)
-                .post('/movies')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${basicToken}`)
-                .send(body2)
-                .expect(401)
-                .end((err, res) => {
-                    expect(res.body.message).to.equal('User limit has been exceeded for the month');
-                    expect(res.body.status).to.equal('fail');
                     done();
                 });
         })
