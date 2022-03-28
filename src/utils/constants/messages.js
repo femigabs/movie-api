@@ -11,10 +11,6 @@ export default {
   ROLE_PERMISSION: 'Access denied, unauthorized user',
   MOVIE_PERMISSION: 'User limit has been exceeded for the month',
   NOT_FOUND_API: 'Oops, You have reached a dead end',
-  NOT_FOUND: (resource) => `${resource} not found`,
-  ALREADY_EXIST: (resource) => `${resource} exists already`,
   CREATE_SUCCESS: (resource) => `${resource} created successfully`,
   FETCH_SUCCESS: (resource) => `${resource} fetched successfully`,
-  RESOURCE_CREATE_ERROR_STATUS: (resource) => `${resource}_CREATE_ERROR`,
-  RESOURCE_FETCH_ERROR_STATUS: (resource) => `${resource}_FETCH_ERROR`,
 };
